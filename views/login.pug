@@ -10,11 +10,11 @@ block content
 
       form.formLogin(action="/login" method='POST')
         div.login 
-          label.labels(for="userName") login 
-          input.inputLogin(type="text" id='userName' name='username' required)
+          label.labels(for="email") Email 
+          input.inputLogin(type="email" id='email' name='email' required)
 
         div.password
-          label.labels(for="userName") password 
-          input.inputPass(type="text" id='userName' name='password' required)
+          label.labels(for="password") Password 
+          input.inputPass(type="text" id='password' name='password' required)
 
         button.inputBtn(type='submit') Login

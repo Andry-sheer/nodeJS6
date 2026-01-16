@@ -11,7 +11,7 @@ header.header
           else 
             img.image(src='images/default.png', alt='default')
 
-        span.name= user.name
+        span.name= user.username
 
       else 
         a.profile(href='/')
@@ -24,6 +24,6 @@ header.header
       a.link(href="/about") About
       if user
         a.link(href='/profile') Profile
-        a.link(href='/logout') Logout
+        a.linkLogout(href='/logout') Logout
       else 
-        a.link(href="/login") Login
+        a.linkLogin(href="/login") Login

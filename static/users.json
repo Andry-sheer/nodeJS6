@@ -1,9 +1,9 @@
 [
   {
     "username": "Admin",
-    "password": "SuperAdmin!2024",
+    "password": "123456",
     "role": "admin",
-    "email": "admin.root@system.com",
+    "email": "admin@system.com",
     "image": "https://i.pinimg.com/736x/b0/fa/21/b0fa21e8c89d48de47ebd1396b88749c.jpg"
   },
   {

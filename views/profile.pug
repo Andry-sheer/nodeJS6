@@ -1,0 +1,40 @@
+extends index
+
+block content
+  div.container 
+    div.content 
+      if user
+        h1.title= title || 'welcome profile page'
+
+        div.profileBlock
+
+          if user.role === 'admin'
+            div.adminImgWrap
+              if user.image
+                img.userImg(src=user.image, alt=user.image)
+              else
+                img.image(src='images/default.png', alt='default')
+
+          if user.role === 'moderator'
+            div.imgModWrap
+              if user.image
+                img.userImg(src=user.image, alt=user.image)
+              else
+                img.image(src='images/default.png', alt='default')
+
+          if user.role === 'user'
+            div.ImgWrap
+              if user.image
+                img.userImg(src=user.image, alt=user.image)
+              else
+                img.image(src='images/default.png', alt='default')
+
+          h1.title= `name: ${user.username}`
+          h3.title=  `email: ${user.email}`
+          h2.title= `role: ${user.role}`
+
+
+      else
+        h1.title sorry you have not access to profile page
+
+      p.subtitle content here.

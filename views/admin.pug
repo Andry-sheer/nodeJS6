@@ -3,5 +3,15 @@ extends index
 block content
   div.container 
     div.content 
+      if user
         h1.title welcome admin page
-        p.subtitle content here.
+        div.adminBlock
+          div.adminImgWrap
+            img.adminImg(src=user.image, alt=user.image)
+          h1.title= user.name
+          h2.title= user.role 
+          h3.title= user.email
+      else
+        h1.title sorry no access to admin page
+
+      p.subtitle content here.

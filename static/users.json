@@ -1,0 +1,42 @@
+[
+  {
+    "username": "Admin",
+    "password": "SuperAdmin!2024",
+    "role": "admin",
+    "email": "admin.root@system.com",
+    "image": "https://i.pinimg.com/736x/b0/fa/21/b0fa21e8c89d48de47ebd1396b88749c.jpg"
+  },
+  {
+    "username": "John",
+    "password": "John777",
+    "role": "moderator",
+    "email": "moder.john@platform.ua",
+    "image": "https://i.pinimg.com/236x/e7/b8/1d/e7b81d2a95e609aeda8dc684ffd4c985.jpg"
+  },
+  {
+    "username": "Olga",
+    "password": "OlgaSecure",
+    "role": "moderator",
+    "email": "olga.moder@service.com",
+    "image": "https://img.freepik.com/free-photo/beautiful-black-white-minimal-design_23-2149253125.jpg?semt=ais_hybrid&w=740&q=80"
+  },
+  {
+    "username": "Petro",
+    "password": "Petro123",
+    "role": "user",
+    "email": "petro.user@email.ua"
+  },
+  {
+    "username": "Alex",
+    "password": "Alex2024",
+    "role": "user",
+    "email": "Alex.user@gmail.com",
+    "image": "https://i.pinimg.com/736x/07/26/cc/0726cce3453c3f5ba5bb3c9eecc8126a.jpg"
+  },
+  {
+    "username": "Mia",
+    "password": "mia2077",
+    "role": "user",
+    "email": "mia.user@gmail.com"
+  }
+]

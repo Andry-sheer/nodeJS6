@@ -1,0 +1,25 @@
+
+header.header
+  div.head
+    div.logo
+      if user
+        a.profile(href='/profile')
+
+          if user.image
+            img.image(src=user.image, alt='profile')
+
+          else 
+            img.image(src='images/default.png', alt='default')
+
+        span.name= user.name
+
+      else 
+        a.profile(href='/')
+          img.image(src='images/logo.svg', alt='logo')
+        span.name Home
+
+    nav.navbar
+      a.link(href="/") Home
+      a.link(href="/users") Users
+      a.link(href="/about") About
+      a.link(href='/profile') profile

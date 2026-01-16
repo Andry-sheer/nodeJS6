@@ -22,4 +22,8 @@ header.header
       a.link(href="/") Home
       a.link(href="/users") Users
       a.link(href="/about") About
-      a.link(href='/profile') profile
+      if user
+        a.link(href='/profile') Profile
+        a.link(href='/logout') Logout
+      else 
+        a.link(href="/login") Login

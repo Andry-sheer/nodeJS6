@@ -3,5 +3,18 @@ extends index
 block content
   div.container 
     div.content 
-        h1.title welcome login page
-        p.subtitle content here.
+      h1.title welcome to login page
+
+      if error
+        p.err= error
+
+      form.formLogin(action="/login" method='POST')
+        div.login 
+          label.labels(for="userName") login 
+          input.inputLogin(type="text" id='userName' name='username' required)
+
+        div.password
+          label.labels(for="userName") password 
+          input.inputPass(type="text" id='userName' name='password' required)
+
+        button.inputBtn(type='submit') Login

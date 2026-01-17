@@ -25,13 +25,25 @@ body {
   gap: 20px;
 }
 
-.profile {
+.profile, .profile-admin, .profile-moderator, .profile-user {
   width: 70px;
   height: 70px;
   overflow: hidden;
   background: white;
   border-radius: 50%;
   border: 2px solid white;
+}
+
+.profile-admin {
+  border-color: blueviolet;
+}
+
+.profile-moderator {
+  border-color: orange;
+}
+
+.profile-user {
+  border-color: forestgreen;
 }
 
 .image {
@@ -41,11 +53,17 @@ body {
   border-radius: 50%;
 }
 
-.name {
+.infoName, .infoEmail, .infoRole {
   font-weight: 500;
+  color: black;
   letter-spacing: 1px;
-  text-transform: uppercase;
   font-size: 18px;
+}
+
+.userInfo {
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
 }
 
 .navbar {
@@ -69,12 +87,15 @@ body {
   text-decoration: underline;
 }
 
-.linkLogin {
-  color: forestgreen;
+.linkLogin, .linkLogout {
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  background: forestgreen;
 }
 
 .linkLogout {
-  color: red;
+  background: red;
 }
 
 .foot {
@@ -109,9 +130,13 @@ body {
 }
 
 .err {
-  color: red;
+  padding: 15px 20px;
+  border-radius: 8px;
+  background: red;
   font-size: 25px;
-  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .formLogin {

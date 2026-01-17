@@ -4,6 +4,7 @@ import morgan from "morgan";
 import session from "express-session";
 import Store from 'session-file-store';
 import { getUsers } from "./utils/get_users.js";
+import { userAuth } from "./middleware/auth.users.js";
 
 dotenv.config();
 const fileStore = Store(session);
@@ -44,7 +45,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/profile", (req, res) => {
+app.get("/profile", userAuth, (req, res) => {
   const user = req.session.user;
   res.render("profile", {
     title: "profile",
@@ -59,16 +60,19 @@ app.get("/login", (req, res) => {
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = users.find(user => user.email === email && user.password === password)
-  if (user.email && user.password === password) {
+
+  if (user) {
+    //! я до цього не одразу дійшло, а потім пригадав як ви казали що можна навіть обьєкт туди записати)))
     req.session.user = {
       email: user.email,
       username: user.username,
       role: user.role,
       image: user.image
     }
+
     res.redirect('/')
   } else {
-    res.render('login', {error : 'Invalid login or password!'})
+    res.render('login', { error : 'Invalid login or password!' })
   }
 });
 

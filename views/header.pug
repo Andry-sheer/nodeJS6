@@ -3,15 +3,17 @@ header.header
   div.head
     div.logo
       if user
-        a.profile(href='/profile')
-
+        a(href='/profile' class=`profile-${user.role}`)
           if user.image
             img.image(src=user.image, alt='profile')
 
           else 
             img.image(src='images/default.png', alt='default')
 
-        span.name= user.username
+        div.userInfo
+          span.infoName= `name: ${user.username}`
+          span.infoEmail= `email: ${user.email}`
+          span.infoRole= `role: ${user.role}`
 
       else 
         a.profile(href='/')
@@ -22,8 +24,8 @@ header.header
       a.link(href="/") Home
       a.link(href="/users") Users
       a.link(href="/about") About
+      a.link(href='/profile') Profile
       if user
-        a.link(href='/profile') Profile
         a.linkLogout(href='/logout') Logout
       else 
         a.linkLogin(href="/login") Login

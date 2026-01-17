@@ -45,19 +45,11 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/profile", userAuth, (req, res) => {
-  const user = req.session.user;
-  res.render("profile", {
-    title: "profile",
-    user
-  });
-});
-
 app.get("/login", (req, res) => {
-  res.render("login", {});
+  res.render("login");
 });
 
-app.post("/login", async (req, res) => {
+app.post("/login", (req, res) => {
   const { email, password } = req.body;
   const user = users.find(user => user.email === email && user.password === password)
 
@@ -82,6 +74,52 @@ app.get('/logout', (req, res)=> {
     res.redirect('/login');
   })
 })
+
+app.get("/admin", userAuth, (req, res) => {
+  const user = req.session.user;
+  res.render("admin", {
+    title: 'admin',
+    user,
+    users: users
+  });
+});
+
+app.get("/about", (req, res) => {
+  const user = req.session.user;
+  res.render("about", {
+    title: 'about',
+    user,
+  });
+});
+
+app.get("/only-users", userAuth, (req, res) => {
+  const user = req.session.user;
+  res.render("only-users", {
+    title: 'users',
+    user
+  });
+});
+
+app.get("/profile", userAuth, (req, res) => {
+  const user = req.session.user;
+  res.render("profile", {
+    title: "profile",
+    user
+  });
+});
+
+
+app.get("/users", userAuth, (req, res) => {
+  const user = req.session.user;
+  res.render("users", {
+    title: 'users',
+    user,
+    users: users
+  });
+});
+
+
+
 
 app.use((req, res) => {
   res.status(404).send("page not found | 404");

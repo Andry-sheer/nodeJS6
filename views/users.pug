@@ -1,0 +1,22 @@
+extends index
+
+block content
+  div.container 
+    div.content 
+      h1.title welcome users page
+
+      div.usersSection
+        each user in users
+          div.users
+            div.imgMini 
+              if user.image
+                img.ava(src=user.image, alt=user.image)
+              else 
+                img.ava(src='images/default.png', alt='default')
+            p(style='color: slategray; font-size: 21px; font-weight: 600') name: 
+              span.spanUsers= user.username
+            p(style='color: slategray; font-size: 21px; font-weight: 600') email: 
+              span.spanUsers= user.email
+            p(style='color: slategray; font-size: 21px; font-weight: 600') role: 
+              span.spanUsers= user.role
+

@@ -3,15 +3,19 @@ extends index
 block content
   div.container 
     div.content 
-      if user
-        h1.title welcome admin page
+      if user.role === 'admin'
+        h1.title= `${title} Page` || "welcome adm page"
         div.adminBlock
-          div.adminImgWrap
-            img.adminImg(src=user.image, alt=user.image)
-          h1.title= user.name
-          h2.title= user.role 
-          h3.title= user.email
+          div.adminLeftSide
+            img.adminPhoto(src=user.image, alt=user.image)
+          
+          div.adminRightSide
+            p.title= `name: ${user.username}`
+            p.title= `email: ${user.email}` 
+            p.title= `role: ${user.role}`
+            br
+            p.title description\bio: 
+            p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor quo sunt, accusamus doloremque maiores, voluptates incidunt itaque nemo nesciunt doloribus sed repellat voluptatem reiciendis libero repellendus ipsam nihil! Ad, mollitia.
+
       else
         h1.title sorry no access to admin page
-
-      p.subtitle content here.

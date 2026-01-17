@@ -22,10 +22,13 @@ header.header
 
     nav.navbar
       a.link(href="/") Home
-      a.link(href="/users") Users
+      a.link(href="/admin") Admin
+      a.link(href="/users") all Users
+      a.link(href="/only-users") Only Users
       a.link(href="/about") About
       a.link(href='/profile') Profile
       if user
-        a.linkLogout(href='/logout') Logout
+        a.linkLogout(href='/logout') logout
       else 
-        a.linkLogin(href="/login") Login
+        a.linkLogin(href="/login") sign in
+        a.linkLogin(href="/registration" style='background: steelblue') sign up

@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 export const addUser = async (newUser) => {
   try {
-    const filePath = path.join(__dirname, '../static/users.json')
+    const filePath = path.join(__dirname, '../data/users.json')
     const users = await getUsers();
     const twinsUsers = users.find(user => user.email === newUser.email && user.username === newUser.username);
 

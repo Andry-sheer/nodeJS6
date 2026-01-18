@@ -12,7 +12,6 @@ dotenv.config();
 const fileStore = Store(session);
 
 const users = await getUsers();
-// console.log(users);
 
 const PORT = process.env.PORT || 3001;
 const SECRET = process.env.SECRET_SESSION;
@@ -24,7 +23,6 @@ app.set("views", "./views");
 app.use(morgan("dev"));
 
 app.use(express.static("./public"));
-app.use(express.static("./static"));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
@@ -54,7 +52,6 @@ app.post("/login", (req, res) => {
   const user = users.find(user => user.email === email && user.password === password)
 
   if (user) {
-    //! я до цього не одразу дійшло, а потім пригадав як ви казали що можна навіть обьєкт туди записати)))
     req.session.user = {
       email: user.email,
       username: user.username,
@@ -136,7 +133,6 @@ app.use((req, res) => {
   res.status(404).send("page not found | 404");
 });
 
-//! додав емодзі запуску))) (про ракету аж страшно писати... 🥲)
 app.listen(PORT, () => {
   console.log(`✅ Server launched at http://localhost:${PORT}`);
 });

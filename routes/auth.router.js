@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { userAuth } from "../middleware/auth.users.js";
+import { getUsers } from "../utils/get_users.js";
 
 const router = Router();
 
@@ -8,7 +9,7 @@ router.get("/admin", userAuth, (req, res) => {
 });
 
 router.get("/only-users", userAuth, (req, res) => {
-  res.render("only-users", { title: 'users' });
+  res.render("only-users", { title: 'only-users' });
 });
 
 router.get("/profile", userAuth, (req, res) => {

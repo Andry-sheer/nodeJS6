@@ -11,8 +11,6 @@ import { addUser } from "./utils/add_user.js";
 dotenv.config();
 const fileStore = Store(session);
 
-const users = await getUsers();
-
 const PORT = process.env.PORT || 3001;
 const SECRET = process.env.SECRET_SESSION;
 const app = express();
@@ -34,6 +32,8 @@ app.use(session({
     path: './sessions',
     ttl: 60 * 60,
     retries: 0,
+    logFn: ()=> {},
+    reapInterval: 86400
   })
 }));
 
@@ -47,8 +47,9 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  const users = await getUsers();
   const user = users.find(user => user.email === email && user.password === password)
 
   if (user) {
@@ -89,7 +90,8 @@ app.get("/profile", userAuth, (req, res) => {
 });
 
 
-app.get("/users", userAuth, (req, res) => {
+app.get("/users", userAuth, async (req, res) => {
+  const users = await getUsers();
   res.render("users", {
     title: 'users',
     users: users
@@ -103,6 +105,7 @@ app.get("/registration", (req, res) => {
 
 app.post("/registration", async (req, res) => {
   const { email, password, username, image } = req.body;
+  const users = await getUsers();
   const user = users.find(user => user.email === email || user.username === username)
 
   if (user) {

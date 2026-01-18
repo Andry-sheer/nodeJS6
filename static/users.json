@@ -24,7 +24,8 @@
     "username": "Petro",
     "password": "Petro123",
     "role": "user",
-    "email": "petro.user@email.ua"
+    "email": "petro.user@email.ua",
+    "image": "./images/default.png"
   },
   {
     "username": "Alex",
@@ -37,6 +38,21 @@
     "username": "Mia",
     "password": "mia2077",
     "role": "user",
-    "email": "mia.user@gmail.com"
+    "email": "mia.user@gmail.com",
+    "image": "./images/default.png"
+  },
+  {
+    "username": "Derec",
+    "email": "aaaaa@hhhh.com",
+    "password": "123456",
+    "role": "user",
+    "image": "./images/default.png"
+  },
+  {
+    "username": "Test",
+    "email": "test@ggggg.com",
+    "password": "123456",
+    "role": "user",
+    "image": "https://4kwallpapers.com/images/walls/thumbs_3t/25117.jpg"
   }
 ]

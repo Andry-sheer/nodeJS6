@@ -1,0 +1,28 @@
+extends index
+
+block content
+  div.container 
+    div.content 
+      h1.title welcome to #{title} page
+      a(href="https://4kwallpapers.com/" style="color: steelblue; font-size: 18px; font-weight: 600" target="_blank") Get images & avatars
+      form.formLogin(action="/registration" method='POST')
+        div.login 
+          label.labels(for="email") Email 
+          input.inputLogin(type="email" id='email' name='email' required)
+
+        div.login
+          label.labels(for="name") Username 
+          input.inputPass(type="text" id='name' name='username' required)
+
+        div.password
+          label.labels(for="password") Password 
+          input.inputPass(type="text" id='password' name='password' required)
+
+        div.login
+          label.labels(for="image") Image URL 
+          input.inputPass(type="text" id='image' name='image')
+
+        button.inputBtn(type='submit') registration
+
+      if error
+        p.error= error

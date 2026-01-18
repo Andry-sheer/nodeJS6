@@ -5,6 +5,8 @@ import session from "express-session";
 import Store from 'session-file-store';
 import { getUsers } from "./utils/get_users.js";
 import { userAuth } from "./middleware/auth.users.js";
+import { reviewUsers } from "./middleware/review.users.js";
+import { addUser } from "./utils/add_user.js";
 
 dotenv.config();
 const fileStore = Store(session);
@@ -37,12 +39,10 @@ app.use(session({
   })
 }));
 
+app.use(reviewUsers);
+
 app.get("/", (req, res) => {
-  const user = req.session.user;
-  res.render("index", {
-    title: "Home",
-    user
-  });
+  res.render("index", { title: "Home" });
 });
 
 app.get("/login", (req, res) => {
@@ -76,49 +76,60 @@ app.get('/logout', (req, res)=> {
 })
 
 app.get("/admin", userAuth, (req, res) => {
-  const user = req.session.user;
-  res.render("admin", {
-    title: 'admin',
-    user,
-    users: users
-  });
+  res.render("admin", { title: 'admin' });
 });
 
 app.get("/about", (req, res) => {
-  const user = req.session.user;
-  res.render("about", {
-    title: 'about',
-    user,
-  });
+  res.render("about", { title: 'about' });
 });
 
 app.get("/only-users", userAuth, (req, res) => {
-  const user = req.session.user;
-  res.render("only-users", {
-    title: 'users',
-    user
-  });
+  res.render("only-users", { title: 'users' });
 });
 
 app.get("/profile", userAuth, (req, res) => {
-  const user = req.session.user;
-  res.render("profile", {
-    title: "profile",
-    user
-  });
+  res.render("profile", { title: "profile" });
 });
 
 
 app.get("/users", userAuth, (req, res) => {
-  const user = req.session.user;
   res.render("users", {
     title: 'users',
-    user,
     users: users
   });
 });
 
+app.get("/registration", (req, res) => {
+  res.render("registration", { title: 'registration' });
+});
 
+
+app.post("/registration", async (req, res) => {
+  const { email, password, username, image } = req.body;
+  const user = users.find(user => user.email === email || user.username === username)
+
+  if (user) {
+    res.render('registration', { error: 'email or username is already exist' })
+  } else {
+    const newUser = {
+      username: username,
+      email: email,
+      password: password,
+      role: 'user',
+      image: image ? image : './images/default.png'
+    }
+    
+    req.session.user = {
+      email: newUser.email,
+      username: newUser.username,
+      role: newUser.role,
+      image: newUser.image
+    }
+
+    await addUser(newUser)
+    res.redirect('/')
+  }
+});
 
 
 app.use((req, res) => {

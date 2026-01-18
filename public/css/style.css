@@ -129,13 +129,12 @@ body {
   font-size: 25px;
 }
 
-.err {
+.error {
   padding: 15px 20px;
   border-radius: 8px;
   background: red;
   font-size: 25px;
   color: white;
-  text-transform: uppercase;
   font-weight: 500;
 }
 

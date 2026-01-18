@@ -33,7 +33,7 @@ app.use(
     store: new fileStore({
       path: "./sessions",
       ttl: 60 * 60,
-      retries: 0,
+      retries: 2,
       logFn: () => {},
       reapInterval: 86400,
     }),

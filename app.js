@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import session from "express-session";
 import Store from "session-file-store";
+import { reviewUsers } from "./middleware/review.users.js";
 import homeRouter from "./routes/main.router.js";
 import loginRouter from "./routes/login.router.js";
 import registrationRouter from "./routes/registration.router.js";
@@ -39,16 +40,14 @@ app.use(
   }),
 );
 
-//! HOME.router + routes without user-auth
+app.use(reviewUsers);
+
 app.use("/", homeRouter);
 
-//! login + logout + POST + without user-auth
 app.use("/", loginRouter);
 
-//! registration.router
 app.use("/", registrationRouter);
 
-//! auth users + auth-midd
 app.use("/", authRouter);
 
 app.use((req, res) => {

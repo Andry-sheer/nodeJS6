@@ -2,11 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import session from "express-session";
-import Store from 'session-file-store';
-import { getUsers } from "./utils/get_users.js";
-import { userAuth } from "./middleware/auth.users.js";
-import { reviewUsers } from "./middleware/review.users.js";
-import { addUser } from "./utils/add_user.js";
+import Store from "session-file-store";
+import homeRouter from "./routes/main.router.js";
+import loginRouter from "./routes/login.router.js";
+import registrationRouter from "./routes/registration.router.js";
+import authRouter from "./routes/auth.router.js";
 
 dotenv.config();
 const fileStore = Store(session);
@@ -23,114 +23,33 @@ app.use(morgan("dev"));
 app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
-  secret: SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {secure: false},
-  store: new fileStore({
-    path: './sessions',
-    ttl: 60 * 60,
-    retries: 0,
-    logFn: ()=> {},
-    reapInterval: 86400
-  })
-}));
+app.use(
+  session({
+    secret: SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+    store: new fileStore({
+      path: "./sessions",
+      ttl: 60 * 60,
+      retries: 0,
+      logFn: () => {},
+      reapInterval: 86400,
+    }),
+  }),
+);
 
-app.use(reviewUsers);
+//! HOME.router + routes without user-auth
+app.use("/", homeRouter);
 
-app.get("/", (req, res) => {
-  res.render("index", { title: "Home" });
-});
+//! login + logout + POST + without user-auth
+app.use("/", loginRouter);
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
+//! registration.router
+app.use("/", registrationRouter);
 
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const users = await getUsers();
-  const user = users.find(user => user.email === email && user.password === password)
-
-  if (user) {
-    req.session.user = {
-      email: user.email,
-      username: user.username,
-      role: user.role,
-      image: user.image
-    }
-
-    res.redirect('/')
-  } else {
-    res.render('login', { error : 'Invalid login or password!' })
-  }
-});
-
-app.get('/logout', (req, res)=> {
-  req.session.destroy((error)=> {
-    if (error) console.log('Error session');
-    res.redirect('/login');
-  })
-})
-
-app.get("/admin", userAuth, (req, res) => {
-  res.render("admin", { title: 'admin' });
-});
-
-app.get("/about", (req, res) => {
-  res.render("about", { title: 'about' });
-});
-
-app.get("/only-users", userAuth, (req, res) => {
-  res.render("only-users", { title: 'users' });
-});
-
-app.get("/profile", userAuth, (req, res) => {
-  res.render("profile", { title: "profile" });
-});
-
-
-app.get("/users", userAuth, async (req, res) => {
-  const users = await getUsers();
-  res.render("users", {
-    title: 'users',
-    users: users
-  });
-});
-
-app.get("/registration", (req, res) => {
-  res.render("registration", { title: 'registration' });
-});
-
-
-app.post("/registration", async (req, res) => {
-  const { email, password, username, image } = req.body;
-  const users = await getUsers();
-  const user = users.find(user => user.email === email || user.username === username)
-
-  if (user) {
-    res.render('registration', { error: 'email or username is already exist' })
-  } else {
-    const newUser = {
-      username: username,
-      email: email,
-      password: password,
-      role: 'user',
-      image: image ? image : './images/default.png'
-    }
-    
-    req.session.user = {
-      email: newUser.email,
-      username: newUser.username,
-      role: newUser.role,
-      image: newUser.image
-    }
-
-    await addUser(newUser)
-    res.redirect('/')
-  }
-});
-
+//! auth users + auth-midd
+app.use("/", authRouter);
 
 app.use((req, res) => {
   res.status(404).send("page not found | 404");
